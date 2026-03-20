@@ -26,7 +26,8 @@ public class MySQL {
         properties.setProperty("password", configuration.getPassword());
         properties.setProperty("useSSL", String.valueOf(configuration.isUseSSL()));
         properties.setProperty("characterEncoding", "UTF-8");
-        con = DriverManager.getConnection(String.format("jdbc:mysql://%s:%d/%s", configuration.getHost(), configuration.getPort(), configuration.getDatabase()), properties);
+        String url = String.format("jdbc:mysql://%s:%d/%s", configuration.getHost(), configuration.getPort(), configuration.getDatabase());
+        con = new com.mysql.cj.jdbc.Driver().connect(url, properties);
         TAB.getInstance().getPlatform().logInfo(new TabTextComponent("Successfully connected to MySQL", TabTextColor.GREEN));
     }
     
